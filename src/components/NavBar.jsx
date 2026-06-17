@@ -68,14 +68,17 @@ export default function NavBar() {
 
         <div className="hidden items-center gap-2.5 md:flex">
           <Link
-            href="#"
+            href="/signin"
             className="rounded-md border border-[rgba(245,230,211,0.18)] px-4 py-1.5 text-sm text-[rgba(245,230,211,0.7)] transition-all hover:bg-[rgba(245,230,211,0.06)] hover:text-[#F5E6D3] no-underline"
           >
             Login
           </Link>
-          <button className="rounded-md bg-[#C8845A] px-4 py-1.5 text-sm font-medium text-[#2C1A0E] transition-colors hover:bg-[#D9956A]">
+          <Link
+            href={"/signup"}
+            className="rounded-md bg-[#C8845A] px-4 py-1.5 text-sm font-medium text-[#2C1A0E] transition-colors hover:bg-[#D9956A]"
+          >
             Sign Up
-          </button>
+          </Link>
         </div>
       </header>
 
@@ -85,14 +88,17 @@ export default function NavBar() {
             {links}
             <li className="mt-3 flex flex-col gap-2 border-t border-[rgba(255,220,180,0.1)] pt-3">
               <Link
-                href="#"
+                href="/auth/signin"
                 className="block rounded-md border border-[rgba(245,230,211,0.18)] py-2.5 text-center text-sm text-[rgba(245,230,211,0.7)] transition-all hover:bg-[rgba(245,230,211,0.06)] hover:text-[#F5E6D3]"
               >
                 Login
               </Link>
-              <button className="w-full rounded-md bg-[#C8845A] py-2.5 text-sm font-medium text-[#2C1A0E] transition-colors hover:bg-[#D9956A]">
+              <Link
+                href={"/auth/signup"}
+                className="w-full rounded-md bg-[#C8845A] py-2.5 text-sm font-medium text-[#2C1A0E] transition-colors hover:bg-[#D9956A]"
+              >
                 Sign Up
-              </button>
+              </Link>
             </li>
           </ul>
         </div>
