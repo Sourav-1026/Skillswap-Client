@@ -26,11 +26,15 @@ import {
   FaArrowRight,
 } from "react-icons/fa";
 import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const SignUpPage = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,13 +43,18 @@ const SignUpPage = () => {
     const payload = Object.fromEntries(new FormData(e.currentTarget));
 
     const { data, error } = await authClient.signUp.email({
-      name: "John Doe", // required
-      email: "john.doe@example.com", // required
-      password: "password1234", // required
-      image: "https://example.com/image.png",
-      accountType: "freelancer", // or "client"
-      callbackURL: "https://example.com/callback",
+      ...payload,
+      plan: "free", // default plan
     });
+
+    if (data) {
+      console.log("Sign up successful:", data);
+      toast.success("Sign up successful!.");
+      router.push("/signin");
+    } else {
+      console.error("Sign up error:", error);
+      toast.error("Sign up failed. Please try again.");
+    }
     // payload => { imageUrl, name, email, password, accountType }
     console.log("Sign up payload:", payload);
 
@@ -58,7 +67,7 @@ const SignUpPage = () => {
       {/* Left brand panel */}
       <aside className="hidden lg:flex lg:w-[44%] relative overflow-hidden flex-col justify-between p-12 bg-brand-950">
         <svg
-          className="pointer-events-none absolute -right-28 -bottom-28 w-[520px] h-[520px]"
+          className="pointer-events-none absolute -right-28 -bottom-28 w-130 h-130"
           viewBox="0 0 520 520"
           fill="none"
           aria-hidden="true"
@@ -210,7 +219,7 @@ const SignUpPage = () => {
             </TextField>
 
             {/* Role selection */}
-            <RadioGroup name="accountType" defaultValue="client">
+            <RadioGroup name="role" defaultValue="client">
               <Label className="text-sm font-medium text-text-primary">
                 I want to sign up as
               </Label>
@@ -286,9 +295,12 @@ const SignUpPage = () => {
 
           <p className="mt-8 text-center text-sm text-text-secondary">
             Already have an account?{" "}
-            <a href="/sign-in" className="text-accent hover:text-accent-hover">
+            <Link
+              href="/sign-in"
+              className="text-accent hover:text-accent-hover"
+            >
               Sign in
-            </a>
+            </Link>
           </p>
         </div>
       </main>

@@ -17,16 +17,41 @@ import {
   FaGoogle,
   FaArrowRight,
 } from "react-icons/fa";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
 
 const SignInPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     const payload = Object.fromEntries(new FormData(e.currentTarget));
+
+    const { data, error } = await authClient.signIn.email({
+      /**
+       * The user email
+       */
+      email: payload.email,
+      /**
+       * The user password
+       */
+      password: payload.password,
+      /**
+       * A URL to redirect to after the user verifies their email (optional)
+       */
+      callbackURL: "/",
+    });
+
+    if (data) {
+      console.log("Sign in successful:", data);
+      toast.success("Sign in successful!.");
+    } else {
+      console.error("Sign in error:", error);
+      toast.error("Sign in failed. Please try again.");
+    }
     // payload => { email, password }
     console.log("Sign in payload:", payload);
 
@@ -173,7 +198,7 @@ const SignInPage = () => {
 
           <p className="mt-8 text-center text-sm text-text-secondary">
             Don&apos;t have an account?{" "}
-            <a href="/sign-up" className="text-accent hover:text-accent-hover">
+            <a href="/signup" className="text-accent hover:text-accent-hover">
               Sign up
             </a>
           </p>
