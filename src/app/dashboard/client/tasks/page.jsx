@@ -1,5 +1,5 @@
 import ClientTasksTable from "@/components/dashboard/ClientTasksTable";
-import { getClientJobs } from "@/lib/api/tasks";
+import { getClientTasks } from "@/lib/api/tasks";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import React from "react";
@@ -9,7 +9,7 @@ const ClientTasksPage = async () => {
     headers: await headers(),
   });
   const user = session?.user;
-  const tasks = await getClientJobs(user?.id);
+  const tasks = await getClientTasks(user?.id);
   console.log(tasks);
   return (
     <div>

@@ -57,7 +57,7 @@ const PostTaskForm = () => {
       clientId: user?.id,
       clientName: user?.name,
       clientEmail: user?.email,
-      createdAt: new Date(),
+      createdAt: new Date().toISOString(),
     };
 
     const res = await createPost(newData);

@@ -22,7 +22,7 @@ export default function NavBar() {
   };
 
   const pathName = usePathname();
-  console.log(pathName, "from navbar");
+  // console.log(pathName, "from navbar");
 
   if (pathName?.includes("/signin") || pathName?.includes("/signup")) {
     return null; // Don't render the NavBar on signin or signup pages
@@ -30,7 +30,7 @@ export default function NavBar() {
 
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  console.log(user, "form navbar");
+  // console.log(user, "form navbar");
   const links = (
     <>
       <li>
