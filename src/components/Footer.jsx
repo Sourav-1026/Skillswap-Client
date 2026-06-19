@@ -1,7 +1,15 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
+  const pathName = usePathname();
+  if (pathName?.includes("/signin") || pathName?.includes("/signup")) {
+    return null; // Don't render the Footer on signin or signup pages
+  }
+
   return (
     <footer className="w-full border-t border-border bg-background px-6 pt-10 pb-6">
       {/* Top grid */}

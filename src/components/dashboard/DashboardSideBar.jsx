@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import { Button, Drawer } from "@heroui/react";
 import { headers } from "next/headers";
+import Link from "next/link";
 import { AiOutlineTransaction, AiTwotoneProject } from "react-icons/ai";
 import { BiBell, BiEnvelope, BiPlus } from "react-icons/bi";
 import { BsHouse, BsPerson } from "react-icons/bs";
@@ -22,18 +23,42 @@ export default async function DashboardSideBar() {
 
   const navItems = {
     client: [
-      { icon: BsHouse, label: "Home" },
-      { icon: BiPlus, label: "Post a Task" },
-      { icon: GoTasklist, label: "My Tasks" },
-      { icon: IoBriefcase, label: "Proposals" },
+      { icon: BsHouse, label: "Home", href: "/dashboard/client" },
+      {
+        icon: BiPlus,
+        label: "Post a Task",
+        href: "/dashboard/client/tasks/new",
+      },
+      { icon: GoTasklist, label: "My Tasks", href: "/dashboard/client/tasks" },
+      {
+        icon: IoBriefcase,
+        label: "Proposals",
+        href: "/dashboard/client/proposals",
+      },
     ],
     freelancer: [
-      { icon: BsHouse, label: "Home" },
-      { icon: GrTasks, label: "Tasks" },
-      { icon: GoTasklist, label: "My Proposals" },
-      { icon: GoProjectSymlink, label: "Projects" },
-      { icon: FaRegMoneyBillAlt, label: "My Earnings" },
-      { icon: FaUserEdit, label: "Edit Profile" },
+      { icon: BsHouse, label: "Home", href: "/dashboard/freelancer" },
+      { icon: GrTasks, label: "Tasks", href: "/dashboard/freelancer/tasks" },
+      {
+        icon: GoTasklist,
+        label: "My Proposals",
+        href: "/dashboard/freelancer/my-proposals",
+      },
+      {
+        icon: GoProjectSymlink,
+        label: "Projects",
+        href: "/dashboard/freelancer/projects",
+      },
+      {
+        icon: FaRegMoneyBillAlt,
+        label: "My Earnings",
+        href: "/dashboard/freelancer/my-earnings",
+      },
+      {
+        icon: FaUserEdit,
+        label: "Edit Profile",
+        href: "/dashboard/freelancer/edit-profile",
+      },
     ],
     admin: [
       { icon: BsHouse, label: "Home" },
@@ -48,14 +73,15 @@ export default async function DashboardSideBar() {
   const navContent = (
     <nav className="flex flex-col gap-1">
       {navItemsForRole.map((item) => (
-        <button
+        <Link
+          href={item.href || "#"}
           key={item.label}
           className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-text-secondary transition-colors hover:bg-default hover:text-accent-hover"
           type="button"
         >
           <item.icon className="size-5 text-accent hover:text-accent-hover" />
           {item.label}
-        </button>
+        </Link>
       ))}
     </nav>
   );

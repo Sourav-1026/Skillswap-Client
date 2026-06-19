@@ -4,11 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@heroui/react";
 
 export default function NavBar() {
   const router = useRouter();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -20,7 +21,13 @@ export default function NavBar() {
     }
   };
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathName = usePathname();
+  console.log(pathName, "from navbar");
+
+  if (pathName?.includes("/signin") || pathName?.includes("/signup")) {
+    return null; // Don't render the NavBar on signin or signup pages
+  }
+
   const { data: session } = authClient.useSession();
   const user = session?.user;
   console.log(user, "form navbar");
