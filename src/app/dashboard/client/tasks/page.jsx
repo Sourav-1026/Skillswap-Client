@@ -9,7 +9,7 @@ const ClientTasksPage = async () => {
     headers: await headers(),
   });
   const user = session?.user;
-  const tasks = await getClientTasks(user?.id);
+  const tasks = await getClientTasks(user?.email, "");
   console.log(tasks);
   return (
     <div>
