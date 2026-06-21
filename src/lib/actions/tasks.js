@@ -21,15 +21,3 @@ export const createProposal = async (newProposalData) => {
   });
   return res.json();
 };
-
-// export const updateStatus = async () => {
-//     const res = await fetch(, {
-//         method: "UPDATE",
-//         headers: {
-//             "Content-Type" : "application/json",
-//         },
-//         body: JSON.stringify(),
-//     })
-//     return res.json();
-
-// }

@@ -1,15 +1,20 @@
+import { headers } from "next/headers";
+
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-export const getClientTasks = async (clientId, status = "Open") => {
+export const getClientTasks = async (clientEmail, status = "") => {
+  const statusQuery = status ? `&status=${status}` : "";
   const res = await fetch(
-    `${baseUrl}/api/tasks?clientId=${clientId}&status=${status}`,
+    `${baseUrl}/api/tasks?clientEmail=${clientEmail}${statusQuery}`,
   );
-  return res.json();
+  const data = await res.json();
+  return data.tasks || [];
 };
 
 export const getAllClientTasks = async (status = "Open") => {
   const res = await fetch(`${baseUrl}/api/tasks?status=${status}`);
-  return res.json();
+  const data = await res.json();
+  return data.tasks || [];
 };
 
 export const getSingleTask = async (taskId) => {
@@ -18,15 +23,16 @@ export const getSingleTask = async (taskId) => {
 };
 
 export const getfreelancerProposals = async (freelancerEmail) => {
+  const headersList = await headers();
+  const cookie = headersList.get("cookie");
+
   const res = await fetch(
     `${baseUrl}/api/proposals?freelancerEmail=${freelancerEmail}`,
+    {
+      headers: cookie ? { Cookie: cookie } : {},
+    },
   );
-  return res.json();
-};
 
-export const getClientProposals = async (clientEmail) => {
-  const res = await fetch(
-    `${baseUrl}/api/proposals?clientEmail=${clientEmail}`,
-  );
-  return res.json();
+  const data = await res.json();
+  return Array.isArray(data) ? data : data.proposals || [];
 };

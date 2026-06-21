@@ -31,32 +31,26 @@ const SignInPage = () => {
     const payload = Object.fromEntries(new FormData(e.currentTarget));
 
     const { data, error } = await authClient.signIn.email({
-      /**
-       * The user email
-       */
       email: payload.email,
-      /**
-       * The user password
-       */
       password: payload.password,
-      /**
-       * A URL to redirect to after the user verifies their email (optional)
-       */
-      callbackURL: "/",
     });
 
     if (data) {
+      if (data.user?.isBlocked) {
+        await authClient.signOut();
+        toast.error("Your account has been blocked by an admin.");
+        setIsSubmitting(false);
+        return;
+      }
+
       console.log("Sign in successful:", data);
-      toast.success("Sign in successful!.");
+      toast.success("Sign in successful!");
+      window.location.href = "/";
     } else {
       console.error("Sign in error:", error);
       toast.error("Sign in failed. Please try again.");
+      setIsSubmitting(false);
     }
-    // payload => { email, password }
-    console.log("Sign in payload:", payload);
-
-    // TODO: wire up to your real sign-in endpoint
-    setTimeout(() => setIsSubmitting(false), 1200);
   };
 
   return (
@@ -188,7 +182,18 @@ const SignInPage = () => {
             <Button
               type="button"
               variant="outline"
-              onPress={() => console.log("Google sign-in")}
+              onClick={async () => {
+                const { data, error } = await authClient.signIn.social({
+                  provider: "google",
+                  callbackURL: "/dashboard/client",
+                });
+                if (error) {
+                  toast.error(
+                    error.message ||
+                      "Google sign in failed. Have you configured GOOGLE_CLIENT_ID in .env.local?",
+                  );
+                }
+              }}
               className="w-full justify-center gap-2 rounded-lg border border-border py-2.5 text-sm font-medium text-text-primary hover:bg-surface-raised"
             >
               <FaGoogle className="text-accent" size={14} />

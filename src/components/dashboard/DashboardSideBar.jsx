@@ -61,10 +61,22 @@ export default async function DashboardSideBar() {
       },
     ],
     admin: [
-      { icon: BsHouse, label: "Home" },
-      { icon: MdManageAccounts, label: "Manage Users" },
-      { icon: MdOutlineManageSearch, label: "Manage Tasks" },
-      { icon: AiOutlineTransaction, label: "Transactions History" },
+      { icon: BsHouse, label: "Home", href: "/dashboard/admin" },
+      {
+        icon: MdManageAccounts,
+        label: "Manage Users",
+        href: "/dashboard/admin/manage-users",
+      },
+      {
+        icon: MdOutlineManageSearch,
+        label: "Manage Tasks",
+        href: "/dashboard/admin/manage-tasks",
+      },
+      {
+        icon: AiOutlineTransaction,
+        label: "Transactions History",
+        href: "/dashboard/admin/transactions",
+      },
     ],
   };
 

@@ -15,7 +15,6 @@ import { toast } from "react-toastify";
 
 const ProposalForm = ({ task }) => {
   const [isLoading, setIsLoading] = useState(false);
-  console.log(task._id, "task id from proposal page");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +23,6 @@ const ProposalForm = ({ task }) => {
       ...data,
       status: "Pending",
       submittedAt: new Date().toISOString(),
-      clientEmail: task.clientEmail,
       taskTitle: task.title,
       taskId: task._id,
     };
@@ -55,7 +53,7 @@ const ProposalForm = ({ task }) => {
       <div className="flex flex-col gap-1.5">
         <span className={"text-accent"}>Task ID</span>
         <p className="text-xs text-primary opacity-60 bg-background border border-border rounded-lg px-3 py-2.5 cursor-not-allowed truncate">
-          {task._id}
+          {task._Id}
         </p>
       </div>
 

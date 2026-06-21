@@ -43,17 +43,20 @@ const SignUpPage = () => {
     const payload = Object.fromEntries(new FormData(e.currentTarget));
 
     const { data, error } = await authClient.signUp.email({
-      ...payload,
-      plan: "free", // default plan
+      name: payload.name,
+      email: payload.email,
+      password: payload.password,
+      image: payload.imageUrl,
+      role: payload.role,
     });
 
     if (data) {
       console.log("Sign up successful:", data);
-      toast.success("Sign up successful!.");
+      toast.success("Sign up successful!");
       router.push("/signin");
     } else {
-      console.error("Sign up error:", error);
-      toast.error("Sign up failed. Please try again.");
+      console.error("Sign up error object:", error);
+      toast.error(error?.message || "Sign up failed. Please try again.");
     }
     // payload => { imageUrl, name, email, password, accountType }
     console.log("Sign up payload:", payload);
@@ -285,7 +288,18 @@ const SignUpPage = () => {
             <Button
               type="button"
               variant="outline"
-              onPress={() => console.log("Google sign-in")}
+              onClick={async () => {
+                const { data, error } = await authClient.signIn.social({
+                  provider: "google",
+                  callbackURL: "/dashboard/client",
+                });
+                if (error) {
+                  toast.error(
+                    error.message ||
+                      "Google sign up failed. Have you configured GOOGLE_CLIENT_ID in .env.local?",
+                  );
+                }
+              }}
               className="w-full justify-center gap-2 rounded-lg border border-border py-2.5 text-sm font-medium text-text-primary hover:bg-surface-raised"
             >
               <FaGoogle className="text-accent" size={14} />

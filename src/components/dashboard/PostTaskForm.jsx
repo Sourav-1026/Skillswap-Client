@@ -2,7 +2,7 @@
 
 import { createPost } from "@/lib/actions/tasks";
 import { authClient } from "@/lib/auth-client";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React from "react";
 import {
   Form,
@@ -42,7 +42,7 @@ const labelClass =
   "flex items-center gap-1.5 text-sm font-medium text-[#F5E6D3] mb-1.5";
 
 const PostTaskForm = () => {
-  //  const {data: session} = await ();
+  const router = useRouter();
   const { data: session } = authClient.useSession();
   const user = session?.user;
   console.log(user);
@@ -53,25 +53,40 @@ const PostTaskForm = () => {
     const data = Object.fromEntries(formData.entries());
     const newData = {
       ...data,
-      status: "Open",
+      status: "open",
+      budget: Number(data.budget),
       clientId: user?.id,
       clientName: user?.name,
       clientEmail: user?.email,
       createdAt: new Date().toISOString(),
     };
 
-    const res = await createPost(newData);
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/tasks`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(newData),
+        },
+      );
 
-    if (res.insertedId) {
-      toast.success("Task posted successfully!");
-      console.log(res);
-      //   e.Target.reset();
-      redirect("/dashboard/client/tasks");
-    } else {
-      toast.error("Failed to post task. Please try again");
+      if (response.ok) {
+        toast.success("Task posted successfully!");
+        router.push("/dashboard/client");
+      } else {
+        const err = await response.json();
+        toast.error(
+          `Failed to post task: ${err.message || response.statusText}`,
+        );
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("An error occurred while posting the task");
     }
-
-    console.log("Form Data Submitted:", newData);
   };
 
   return (
