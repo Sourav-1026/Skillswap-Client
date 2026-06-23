@@ -66,18 +66,6 @@ Clean, mobile-first UI across all pages — navbar, dashboards, cards, and forms
 
 ---
 
-## 🗄️ Database Collections
-
-| Collection  | Key Fields                                                                                       |
-| ----------- | ------------------------------------------------------------------------------------------------ |
-| `users`     | name, email, image, role, skills, bio, isBlocked, createdAt                                      |
-| `tasks`     | title, category, description, budget, deadline, client_email, status, deliverable_url, createdAt |
-| `proposals` | task_id, freelancer_email, proposed_budget, estimated_days, cover_note, status, submitted_at     |
-| `payments`  | client_email, freelancer_email, task_id, amount, transaction_id, payment_status, paid_at         |
-| `reviews`   | task_id, reviewer_email, reviewee_email, rating, comment, created_at                             |
-
----
-
 ## 🔑 Test Credentials
 
 | Role       | Email                     | Password                  |
