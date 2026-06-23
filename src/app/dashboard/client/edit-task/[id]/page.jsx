@@ -16,6 +16,7 @@ export default function EditTaskPage({ params }) {
   // Unwrap params in React 19 / Next.js 15+ if needed, but since it's a client component, we use React.use()
   const resolvedParams = React.use(params);
   const taskId = resolvedParams.id;
+  console.log(taskId, "From edit task page");
 
   useEffect(() => {
     if (!isPending) {

@@ -30,11 +30,6 @@ export default async function DashboardSideBar() {
         href: "/dashboard/client/tasks/new",
       },
       { icon: GoTasklist, label: "My Tasks", href: "/dashboard/client/tasks" },
-      {
-        icon: IoBriefcase,
-        label: "Proposals",
-        href: "/dashboard/client/proposals",
-      },
     ],
     freelancer: [
       { icon: BsHouse, label: "Home", href: "/dashboard/freelancer" },
