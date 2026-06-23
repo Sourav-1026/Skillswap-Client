@@ -78,27 +78,6 @@ Clean, mobile-first UI across all pages — navbar, dashboards, cards, and forms
 
 ---
 
-## 📦 Key NPM Packages
-
-**Frontend**
-
-- `next` — App Router framework
-- `better-auth` — Authentication client
-- `framer-motion` — Page and section animations
-- `@heroui/react` — UI component library
-- `react-toastify` — Toast notifications
-
-**Backend**
-
-- `express` — HTTP server
-- `mongodb` — Database driver
-- `stripe` — Payment processing
-- `cors` — Cross-origin requests
-- `dotenv` — Environment variable management
-- `jsonwebtoken` — JWT auth middleware
-
----
-
 ## 🔑 Test Credentials
 
 | Role       | Email                     | Password                  |
