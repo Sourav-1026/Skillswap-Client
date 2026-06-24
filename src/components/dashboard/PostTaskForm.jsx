@@ -36,10 +36,10 @@ const CATEGORIES = [
 ];
 
 const fieldClass =
-  "w-full rounded-lg border border-[rgba(255,220,180,0.12)] bg-[#3A2215] px-3 py-2 text-sm text-[#F5E6D3] placeholder:text-[rgba(245,230,211,0.35)] focus:outline-none focus:border-[#C8845A] focus:ring-1 focus:ring-[#C8845A]/30 transition";
+  "w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-primary placeholder:text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition";
 
 const labelClass =
-  "flex items-center gap-1.5 text-sm font-medium text-[#F5E6D3] mb-1.5";
+  "flex items-center gap-1.5 text-sm font-medium text-primary mb-1.5";
 
 const PostTaskForm = () => {
   const router = useRouter();
@@ -95,7 +95,7 @@ const PostTaskForm = () => {
         {/* Page Header */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-[#F5E6D3]">Post a New Task</h1>
-          <p className="text-sm text-text-secondary mt-1">
+          <p className="text-sm text-secondary mt-1">
             Fill in the details below to find the right freelancer for your
             project.
           </p>
@@ -130,7 +130,7 @@ const PostTaskForm = () => {
               defaultValue=""
               className={fieldClass}
             >
-              <option value="" disabled className="bg-surface text-text-muted">
+              <option value="" disabled className="bg-surface text-muted">
                 Select a category
               </option>
               {CATEGORIES.map((cat) => (
@@ -200,7 +200,7 @@ const PostTaskForm = () => {
           </Button>
         </Form>
 
-        <p className="text-center text-xs text-text-muted mt-4">
+        <p className="text-center text-xs text-muted mt-4">
           Your task will be visible to verified freelancers only.
         </p>
       </div>

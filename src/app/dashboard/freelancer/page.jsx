@@ -89,7 +89,7 @@ const FreelancerPage = () => {
     <div className="p-6">
       <h1
         className="text-2xl font-medium mb-6"
-        style={{ color: "var(--color-text-primary)" }}
+        style={{ color: "var(--color-primary)" }}
       >
         Freelancer Dashboard
       </h1>
@@ -101,29 +101,27 @@ const FreelancerPage = () => {
             className="bg-surface border border-border rounded-xl p-5 flex flex-col gap-3"
           >
             <div className="flex items-center justify-between">
-              <span className="text-sm text-secondary-foreground">
-                {stat.label}
-              </span>
+              <span className="text-sm text-secondary">{stat.label}</span>
               <span className="bg-primary/15 text-primary rounded-lg p-1.75 flex items-center justify-center">
                 {stat.icon}
               </span>
             </div>
             <div>
-              <p className="text-[28px] font-medium text-shadow-accent leading-none">
+              <p className="text-primary text-[28px] font-bold leading-none">
                 {stat.prefix}
                 {stat.value}
               </p>
-              <p className="text-xs text-muted-foreground mt-1.5">{stat.sub}</p>
+              <p className="text-xs text-muted mt-1.5">{stat.sub}</p>
             </div>
           </div>
         ))}
       </div>
 
-      <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-4">
+      <h2 className="text-xl font-bold text-[var(--color-primary)] mb-4">
         My Proposals
       </h2>
       {proposals.length === 0 ? (
-        <p className="text-gray-500">
+        <p className="text-secondary">
           You haven't submitted any proposals yet.
         </p>
       ) : (
@@ -134,16 +132,16 @@ const FreelancerPage = () => {
               className="bg-[var(--color-surface)] p-6 rounded-xl border border-[var(--color-border)] shadow-sm"
             >
               <div className="flex justify-between items-start mb-4">
-                <h3 className="text-lg font-bold text-[var(--color-text-primary)]">
+                <h3 className="text-lg font-bold text-[var(--color-primary)]">
                   Proposal
                 </h3>
                 <span
-                  className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${proposal.status === "accepted" ? "bg-green-100 text-green-700" : proposal.status === "rejected" ? "bg-red-100 text-red-700" : "bg-yellow-100 text-yellow-700"}`}
+                  className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${proposal.status === "accepted" ? "bg-green-500/10 text-green-500 border border-green-500/20" : proposal.status === "rejected" ? "bg-red-500/10 text-red-500 border border-red-500/20" : "bg-yellow-500/10 text-yellow-500 border border-yellow-500/20"}`}
                 >
                   {proposal.status}
                 </span>
               </div>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+              <p className="text-sm text-[var(--color-secondary)] mb-4">
                 Proposed Budget: ${proposal.proposed_budget} | Estimated Days:{" "}
                 {proposal.estimated_days}
               </p>

@@ -3,8 +3,10 @@ import React, { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function TaskProposalsList({ taskId, taskOwnerEmail }) {
+  const router = useRouter();
   const { data: session, isPending } = authClient.useSession();
   const [proposals, setProposals] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -36,6 +38,14 @@ export default function TaskProposalsList({ taskId, taskOwnerEmail }) {
   };
 
   const handleAction = async (proposalId, status) => {
+    // If the client decides to accept a proposal, we don't just update the database anymore.
+    // Instead, we redirect them to the secure Stripe Checkout page to capture the payment.
+    if (status === "accepted") {
+      router.push(`/checkout/${proposalId}`);
+      return;
+    }
+
+    // For rejections, we can directly update the database.
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/proposals/${proposalId}`,
@@ -65,37 +75,37 @@ export default function TaskProposalsList({ taskId, taskOwnerEmail }) {
   }
 
   return (
-    <div className="mt-12 border-t border-[rgba(44,26,14,0.1)] pt-8">
-      <h3 className="text-2xl font-bold text-[#2C1A0E] mb-6">
+    <div className="mt-12 border-t border-border pt-8">
+      <h3 className="text-2xl font-bold text-primary mb-6">
         Received Proposals ({proposals.length})
       </h3>
 
       {proposals.length === 0 ? (
-        <p className="text-gray-500 italic">No proposals received yet.</p>
+        <p className="text-secondary italic">No proposals received yet.</p>
       ) : (
         <div className="flex flex-col gap-6">
           {proposals.map((p) => (
             <div
               key={p._id}
-              className="bg-[#F9F6F0] p-6 rounded-2xl border border-[rgba(44,26,14,0.1)]"
+              className="bg-surface-raised p-6 rounded-2xl border border-border"
             >
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h4 className="font-bold text-[#2C1A0E] text-lg">
+                  <h4 className="font-bold text-primary text-lg">
                     <Link
                       href={`/freelancers/${p.freelancer_email}`}
-                      className="hover:underline text-[#C8845A]"
+                      className="hover:underline text-accent"
                     >
                       {p.freelancer_email}
                     </Link>
                   </h4>
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-sm text-secondary mt-1">
                     Budget:{" "}
-                    <span className="font-semibold text-[#2C1A0E]">
+                    <span className="font-semibold text-primary">
                       ${p.proposed_budget}
                     </span>{" "}
                     | Days:{" "}
-                    <span className="font-semibold text-[#2C1A0E]">
+                    <span className="font-semibold text-primary">
                       {p.estimated_days}
                     </span>
                   </p>
@@ -103,10 +113,10 @@ export default function TaskProposalsList({ taskId, taskOwnerEmail }) {
                 <span
                   className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${
                     p.status === "accepted"
-                      ? "bg-green-100 text-green-700"
+                      ? "bg-green-500/10 text-green-500"
                       : p.status === "rejected"
-                        ? "bg-red-100 text-red-700"
-                        : "bg-yellow-100 text-yellow-700"
+                        ? "bg-red-500/10 text-red-500"
+                        : "bg-yellow-500/10 text-yellow-500"
                   }`}
                 >
                   {p.status}
@@ -114,10 +124,10 @@ export default function TaskProposalsList({ taskId, taskOwnerEmail }) {
               </div>
 
               <div className="mb-6">
-                <p className="text-sm font-semibold text-[#2C1A0E] mb-2">
+                <p className="text-sm font-semibold text-primary mb-2">
                   Cover Letter:
                 </p>
-                <p className="text-gray-700 text-sm whitespace-pre-wrap">
+                <p className="text-secondary text-sm whitespace-pre-wrap">
                   {p.cover_letter}
                 </p>
               </div>
@@ -126,13 +136,13 @@ export default function TaskProposalsList({ taskId, taskOwnerEmail }) {
                 <div className="flex gap-4">
                   <button
                     onClick={() => handleAction(p._id, "accepted")}
-                    className="flex-1 bg-[#2C1A0E] text-white py-2 rounded-lg font-semibold hover:bg-[#1a0f08] transition-colors"
+                    className="flex-1 bg-accent text-accent-text py-2 rounded-lg font-semibold hover:bg-accent-hover transition-colors"
                   >
                     Accept & Hire
                   </button>
                   <button
                     onClick={() => handleAction(p._id, "rejected")}
-                    className="flex-1 bg-white border border-red-200 text-red-600 py-2 rounded-lg font-semibold hover:bg-red-50 transition-colors"
+                    className="flex-1 bg-surface border border-red-500/30 text-red-500 py-2 rounded-lg font-semibold hover:bg-red-500/10 transition-colors"
                   >
                     Reject
                   </button>

@@ -12,6 +12,7 @@ import { GoProjectSymlink, GoTasklist } from "react-icons/go";
 import { GrTasks } from "react-icons/gr";
 import { IoBriefcase } from "react-icons/io5";
 import { MdManageAccounts, MdOutlineManageSearch } from "react-icons/md";
+import { PiNewspaperDuotone } from "react-icons/pi";
 
 export default async function DashboardSideBar() {
   const session = await auth.api.getSession({
@@ -30,6 +31,11 @@ export default async function DashboardSideBar() {
         href: "/dashboard/client/tasks/new",
       },
       { icon: GoTasklist, label: "My Tasks", href: "/dashboard/client/tasks" },
+      {
+        icon: PiNewspaperDuotone,
+        label: "Proposals",
+        href: "/dashboard/client/proposals",
+      },
     ],
     freelancer: [
       { icon: BsHouse, label: "Home", href: "/dashboard/freelancer" },

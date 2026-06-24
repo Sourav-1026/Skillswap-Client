@@ -31,53 +31,52 @@ export default async function TaskDetailsPage({ params }) {
   }
 
   return (
-    <main className="min-h-screen bg-[#F9F6F0] py-12 px-6">
+    <main className="min-h-screen bg-background py-12 px-6">
       <div className="max-w-4xl mx-auto">
         <Link
           href="/tasks"
-          className="text-[#C8845A] hover:underline mb-8 inline-block font-medium"
+          className="text-accent hover:underline mb-8 inline-block font-medium"
         >
           &larr; Back to Browse Tasks
         </Link>
 
-        <div className="bg-white rounded-3xl p-8 border border-[rgba(44,26,14,0.1)] shadow-sm">
+        {/* Main task container */}
+        <div className="bg-surface rounded-3xl p-8 border border-border shadow-sm">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-            <h1 className="text-3xl font-bold text-[#2C1A0E]">{task.title}</h1>
+            <h1 className="text-3xl font-bold text-primary">{task.title}</h1>
             <span
-              className={`px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-wider ${task.status === "open" ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-700"}`}
+              className={`px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-wider ${task.status === "open" ? "bg-green-500/10 text-green-500 border border-green-500/20" : "bg-surface-raised border border-border text-secondary"}`}
             >
               {task.status}
             </span>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8 p-6 bg-[#F9F6F0] rounded-2xl">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8 p-6 bg-surface-raised border border-border rounded-2xl">
             <div>
-              <p className="text-sm text-gray-500 mb-1">Budget</p>
-              <p className="font-bold text-xl text-[#2C1A0E]">${task.budget}</p>
+              <p className="text-sm text-secondary mb-1">Budget</p>
+              <p className="font-bold text-xl text-primary">${task.budget}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-500 mb-1">Category</p>
-              <p className="font-semibold text-[#C8845A]">{task.category}</p>
+              <p className="text-sm text-secondary mb-1">Category</p>
+              <p className="font-semibold text-accent">{task.category}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-500 mb-1">Deadline</p>
-              <p className="font-semibold text-[#2C1A0E]">
+              <p className="text-sm text-secondary mb-1">Deadline</p>
+              <p className="font-semibold text-primary">
                 {new Date(task.deadline).toLocaleDateString()}
               </p>
             </div>
             <div>
-              <p className="text-sm text-gray-500 mb-1">Posted By</p>
-              <p className="font-semibold text-[#2C1A0E] truncate">
+              <p className="text-sm text-secondary mb-1">Posted By</p>
+              <p className="font-semibold text-primary truncate">
                 {task.client_email}
               </p>
             </div>
           </div>
 
           <div className="mb-8">
-            <h3 className="text-xl font-bold text-[#2C1A0E] mb-4">
-              Description
-            </h3>
-            <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">
+            <h3 className="text-xl font-bold text-primary mb-4">Description</h3>
+            <p className="text-secondary whitespace-pre-wrap leading-relaxed">
               {task.description}
             </p>
           </div>

@@ -19,17 +19,17 @@ export default function Pagination({ total, limit, currentPage }) {
       <button
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage <= 1}
-        className="px-4 py-2 border border-gray-300 bg-white text-[#2C1A0E] rounded-md disabled:opacity-50 hover:bg-gray-50 transition-colors"
+        className="px-4 py-2 border border-accent text-accent rounded-md disabled:opacity-50 hover:bg-surface-raised transition-colors"
       >
         Previous
       </button>
-      <span className="text-[#2C1A0E] font-medium">
+      <span className="text-primary font-medium">
         Page {currentPage} of {totalPages}
       </span>
       <button
         onClick={() => handlePageChange(currentPage + 1)}
         disabled={currentPage >= totalPages}
-        className="px-4 py-2 border border-gray-300 bg-white text-[#2C1A0E] rounded-md disabled:opacity-50 hover:bg-gray-50 transition-colors"
+        className="px-4 py-2 border border-accent text-accent rounded-md disabled:opacity-50 hover:bg-surface-raised transition-colors"
       >
         Next
       </button>

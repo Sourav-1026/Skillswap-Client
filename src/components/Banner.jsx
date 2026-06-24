@@ -1,7 +1,31 @@
+"use client";
+
 import React from "react";
 import { Button } from "@heroui/react";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 const Banner = () => {
+  const router = useRouter();
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+
+  const handlePostATask = () => {
+    if (user?.role !== "client") {
+      router.push("/signin");
+    } else {
+      router.push("/dashboard/client/tasks/new");
+    }
+  };
+
+  const handleBrowseTask = () => {
+    if (user?.role !== "freelancer") {
+      router.push("/signin");
+    } else {
+      router.push("/tasks");
+    }
+  };
+
   return (
     <div className="relative min-h-screen bg-[url(/world-map.svg)] bg-cover bg-center flex items-center justify-center overflow-hidden">
       {/* Overlay */}
@@ -21,10 +45,16 @@ const Banner = () => {
           them in minutes, not weeks.
         </p>
         <div className="flex gap-4 mt-8 justify-center">
-          <Button className="bg-linear-to-r from-accent  to-accent/90 rounded-full px-8 py-6 shadow-[0_8px_30px_rgba(0,0,0,0.4)] shadow-accent/40 hover:shadow-accent/60 hover:-translate-y-0.5 transition-all duration-300">
+          <Button
+            onClick={handlePostATask}
+            className="bg-linear-to-r from-accent  to-accent/90 rounded-full px-8 py-6 shadow-[0_8px_30px_rgba(0,0,0,0.4)] shadow-accent/40 hover:shadow-accent/60 hover:-translate-y-0.5 transition-all duration-300"
+          >
             Post a Task
           </Button>
-          <Button className="bg-white/5 border border-white/20 backdrop-blur-md rounded-full px-8 py-6 hover:bg-white/10 hover:border-white/50 hover:-translate-y-0.5 transition-all duration-300">
+          <Button
+            onClick={handleBrowseTask}
+            className="bg-white/5 border border-white/20 backdrop-blur-md rounded-full px-8 py-6 hover:bg-white/10 hover:border-white/50 hover:-translate-y-0.5 transition-all duration-300"
+          >
             Browse Tasks
           </Button>
         </div>

@@ -37,15 +37,20 @@ export default function NavBar() {
         <Link href={"/"}>Home</Link>
       </li>
       <li>
-        <Link href={"/"}>Browse Tasks</Link>
+        <Link href={"/tasks"}>Browse Tasks</Link>
       </li>
       <li>
-        <Link href={"/"}>Browse Freelancers</Link>
+        <Link href={"/freelancers"}>Browse Freelancers</Link>
       </li>
       {user ? (
-        <li>
-          <Link href={`/dashboard/${user?.role}`}>Dashboard</Link>
-        </li>
+        <>
+          <li>
+            <Link href={`/dashboard/${user?.role}`}>Dashboard</Link>
+          </li>
+          <li>
+            <Link href={`/profile`}>Profile</Link>
+          </li>
+        </>
       ) : (
         ""
       )}

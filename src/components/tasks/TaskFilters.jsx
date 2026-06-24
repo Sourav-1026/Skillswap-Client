@@ -32,18 +32,18 @@ export default function TaskFilters() {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row gap-4 mb-8 bg-white p-4 rounded-xl border border-[rgba(44,26,14,0.1)] shadow-sm">
+    <div className="flex flex-col sm:flex-row gap-4 mb-8 bg-surface-raised p-4 rounded-xl border border-border shadow-sm">
       <input
         type="text"
         placeholder="Search task title..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="flex-1 p-2 border border-gray-300 rounded-md focus:outline-hidden focus:border-[#C8845A] text-black"
+        className="flex-1 p-2 border border-border bg-surface rounded-md focus:outline-hidden focus:border-accent text-primary placeholder-text-muted"
       />
       <select
         value={category}
         onChange={(e) => setCategory(e.target.value)}
-        className="p-2 border border-gray-300 rounded-md bg-white text-black focus:outline-hidden focus:border-[#C8845A]"
+        className="p-2 border border-border rounded-md bg-surface text-primary focus:outline-hidden focus:border-accent"
       >
         {categories.map((c) => (
           <option key={c} value={c}>
@@ -53,7 +53,7 @@ export default function TaskFilters() {
       </select>
       <button
         onClick={handleFilter}
-        className="bg-[#C8845A] text-[#2C1A0E] px-8 py-2 rounded-md font-semibold hover:bg-[#b0724b] transition-colors"
+        className="bg-accent text-accent-text px-8 py-2 rounded-md font-semibold hover:bg-accent-hover transition-colors"
       >
         Filter
       </button>

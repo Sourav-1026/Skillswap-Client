@@ -48,7 +48,7 @@ const ClientPage = () => {
     return <div className="p-6 text-center">Loading...</div>;
 
   const totalSpent = tasks.reduce(
-    (acc, t) => (t.status === "In Progress" ? acc + Number(t.budget) : acc),
+    (acc, t) => (t.status !== "open" ? acc + Number(t.budget) : acc),
     0,
   );
 
@@ -132,7 +132,7 @@ const ClientPage = () => {
         ))}
       </div>
 
-      <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-4">
+      <h2 className="text-xl font-bold text-(--color-text-primary) mb-4">
         My Posted Tasks
       </h2>
       {tasks.length === 0 ? (
