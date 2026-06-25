@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 
@@ -32,9 +33,12 @@ export default async function BrowseFreelancersPage() {
               className="border border-[rgba(44,26,14,0.1)] rounded-2xl p-6 bg-white hover:shadow-lg transition-all flex flex-col items-center text-center"
             >
               {freelancer.image ? (
-                <img
+                <Image
                   src={freelancer.image}
                   alt={freelancer.name}
+                  width={100}
+                  height={100}
+                  unoptimized
                   className="w-24 h-24 rounded-full mb-4 object-cover border-2 border-[#C8845A]"
                 />
               ) : (

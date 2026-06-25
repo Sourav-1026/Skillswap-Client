@@ -6,7 +6,7 @@ export async function proxy(request) {
     request.cookies.get("__Secure-better-auth.session_token")?.value;
 
   if (!sessionCookie) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL("/signin", request.url));
   }
 
   try {
@@ -20,11 +20,11 @@ export async function proxy(request) {
     );
 
     if (!response.ok) {
-      return NextResponse.redirect(new URL("/login", request.url));
+      return NextResponse.redirect(new URL("/signin", request.url));
     }
     const session = await response.json();
     if (!session || !session.user) {
-      return NextResponse.redirect(new URL("/login", request.url));
+      return NextResponse.redirect(new URL("/signin", request.url));
     }
 
     const userRole = session.user.role?.toLowerCase();
@@ -47,7 +47,7 @@ export async function proxy(request) {
 
     return NextResponse.next();
   } catch (error) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL("/signin", request.url));
   }
 }
 

@@ -31,24 +31,47 @@ export default function NavBar() {
 
   const user = session?.user;
   // console.log(user, "form navbar");
+
+  const isActive = (href) => pathName === href;
+
+  const linkClass = (href) =>
+    `text-sm no-underline transition-colors ${
+      isActive(href)
+        ? "text-[#F5E6D3] border-b border-[#C8845A] pb-0.5"
+        : "text-[rgba(245,230,211,0.65)] hover:text-[#F5E6D3]"
+    }`;
+
   const links = (
     <>
       <li>
-        <Link href={"/"}>Home</Link>
+        <Link href={"/"} className={linkClass("/")}>
+          Home
+        </Link>
       </li>
       <li>
-        <Link href={"/tasks"}>Browse Tasks</Link>
+        <Link href={"/tasks"} className={linkClass("/tasks")}>
+          Browse Tasks
+        </Link>
       </li>
       <li>
-        <Link href={"/freelancers"}>Browse Freelancers</Link>
+        <Link href={"/freelancers"} className={linkClass("/freelancers")}>
+          Browse Freelancers
+        </Link>
       </li>
       {user ? (
         <>
           <li>
-            <Link href={`/dashboard/${user?.role}`}>Dashboard</Link>
+            <Link
+              href={`/dashboard/${user?.role}`}
+              className={linkClass(`/dashboard/${user?.role}`)}
+            >
+              Dashboard
+            </Link>
           </li>
           <li>
-            <Link href={`/profile`}>Profile</Link>
+            <Link href={`/profile`} className={linkClass("/profile")}>
+              Profile
+            </Link>
           </li>
         </>
       ) : (
@@ -99,9 +122,7 @@ export default function NavBar() {
           </div>
         </div>
 
-        <ul className="hidden items-center gap-8 md:flex [&_a]:text-sm [&_a]:text-text-secondary [&_a]:transition-colors hover:[&_a]:text-[#F5E6D3] [&_a]:no-underline">
-          {links}
-        </ul>
+        <ul className="hidden items-center gap-8 md:flex">{links}</ul>
 
         <div className="hidden items-center gap-2.5 md:flex">
           {user ? (
@@ -129,21 +150,29 @@ export default function NavBar() {
 
       {isMenuOpen && (
         <div className="border-t border-[rgba(255,220,180,0.1)] md:hidden">
-          <ul className="flex flex-col gap-0.5 px-5 py-3 [&_a]:block [&_a]:py-2.5 [&_a]:text-sm [&_a]:text-text-secondary [&_a]:no-underline hover:[&_a]:text-[#F5E6D3]">
+          <ul className="flex flex-col gap-0.5 px-5 py-3">
             {links}
             <li className="mt-3 flex flex-col gap-2 border-t border-[rgba(255,220,180,0.1)] pt-3">
-              <Link
-                href="/auth/signin"
-                className="block rounded-md border border-[rgba(245,230,211,0.18)] py-2.5 text-center text-sm text-[rgba(245,230,211,0.7)] transition-all hover:bg-[rgba(245,230,211,0.06)] hover:text-[#F5E6D3]"
-              >
-                Login
-              </Link>
-              <Link
-                href={"/auth/signup"}
-                className="w-full rounded-md bg-[#C8845A] py-2.5 text-sm font-medium text-[#2C1A0E] transition-colors hover:bg-accent-hover"
-              >
-                Sign Up
-              </Link>
+              {user ? (
+                <>
+                  <Button
+                    onClick={handleLogout}
+                    href={"/signup"}
+                    className="rounded-md bg-[#C8845A] px-4 py-1.5 text-sm font-medium text-[#2C1A0E] transition-colors hover:bg-accent-hover"
+                  >
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/signin"
+                    className="rounded-md border border-[rgba(245,230,211,0.18)] px-4 py-1.5 text-sm text-[rgba(245,230,211,0.7)] transition-all hover:bg-[rgba(245,230,211,0.06)] hover:text-[#F5E6D3] no-underline"
+                  >
+                    Login
+                  </Link>
+                </>
+              )}
             </li>
           </ul>
         </div>

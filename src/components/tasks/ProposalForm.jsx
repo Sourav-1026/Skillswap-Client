@@ -61,16 +61,14 @@ export default function ProposalForm({ taskId }) {
 
   return (
     <div className="mt-12 pt-8 border-t border-[rgba(44,26,14,0.1)]">
-      <h3 className="text-2xl font-bold text-[#2C1A0E] mb-6">
-        Submit a Proposal
-      </h3>
+      <h3 className="text-2xl font-bold text-accent mb-6">Submit a Proposal</h3>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-6 bg-white p-6 rounded-2xl border border-[rgba(44,26,14,0.1)]"
+        className="flex flex-col gap-6 bg-accent-text p-3 md:p-6 rounded-2xl border border-[rgba(44,26,14,0.1)]"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-shadow-accent mb-2">
               Proposed Budget ($)
             </label>
             <input
@@ -78,11 +76,11 @@ export default function ProposalForm({ taskId }) {
               required
               value={budget}
               onChange={(e) => setBudget(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg text-black focus:outline-hidden focus:border-[#C8845A]"
+              className="w-full p-3 border border-gray-300 rounded-lg text-shadow-accent focus:outline-hidden focus:border-[#C8845A]"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-shadow-accent mb-2">
               Estimated Days
             </label>
             <input
@@ -90,12 +88,12 @@ export default function ProposalForm({ taskId }) {
               required
               value={days}
               onChange={(e) => setDays(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg text-black focus:outline-hidden focus:border-[#C8845A]"
+              className="w-full p-3 border border-gray-300 rounded-lg text-shadow-accent focus:outline-hidden focus:border-[#C8845A]"
             />
           </div>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-shadow-accent mb-2">
             Cover Note Message
           </label>
           <textarea
@@ -103,7 +101,7 @@ export default function ProposalForm({ taskId }) {
             rows="4"
             value={coverNote}
             onChange={(e) => setCoverNote(e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg text-black focus:outline-hidden focus:border-[#C8845A]"
+            className="w-full p-3 border border-gray-300 rounded-lg text-shadow-accent focus:outline-hidden focus:border-[#C8845A]"
           ></textarea>
         </div>
         <button

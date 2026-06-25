@@ -75,14 +75,13 @@ function TasksContent() {
         <h1 className="text-4xl font-bold text-primary mb-8">Browse Tasks</h1>
 
         {/* Filters and Search */}
-        {/* We use surface-raised here to distinguish the search area from the background */}
         <div className="flex flex-col gap-6 mb-8 bg-surface-raised p-6 md:p-8 rounded-2xl border border-border shadow-md">
           <input
             type="text"
             placeholder="Search tasks by title..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full md:w-1/2 rounded-xl border border-border px-5 py-3.5 bg-surface text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent transition-all"
+            className="w-full rounded-xl border border-border px-5 py-3.5 bg-surface text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent transition-all"
           />
           <div className="flex flex-wrap gap-3">
             {[

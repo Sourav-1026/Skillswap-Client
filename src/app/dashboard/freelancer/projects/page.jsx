@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
 import Link from "next/link";
+import { Button } from "@heroui/react";
 
 export default function FreelancerProjectPage() {
   const { data: session, isPending } = authClient.useSession();
@@ -69,10 +70,10 @@ export default function FreelancerProjectPage() {
 
   return (
     <div className="p-6 md:p-10 max-w-6xl mx-auto">
-      <h1 className="text-3xl font-bold text-[#2C1A0E] mb-8">My Projects</h1>
+      <h1 className="text-3xl font-bold text-accent mb-8">My Projects</h1>
 
       {projects.length === 0 ? (
-        <div className="bg-white rounded-3xl p-12 text-center border border-[rgba(44,26,14,0.1)] shadow-sm">
+        <div className="bg-surface rounded-3xl p-12 text-center border border-[rgba(44,26,14,0.1)] shadow-sm">
           <p className="text-gray-500 mb-4">You have no active projects yet.</p>
           <Link
             href="/tasks"
@@ -86,11 +87,11 @@ export default function FreelancerProjectPage() {
           {projects.map((project) => (
             <div
               key={project._id}
-              className="bg-white rounded-2xl p-6 shadow-sm border border-[rgba(44,26,14,0.1)] flex flex-col"
+              className="bg-accent-text rounded-2xl p-6 shadow-sm border border-accent flex flex-col"
             >
               <div className="flex justify-between items-start mb-4">
                 <h3
-                  className="text-xl font-bold text-[#2C1A0E] truncate mr-4"
+                  className="text-xl font-bold text-shadow-accent truncate mr-4"
                   title={project.title}
                 >
                   {project.title}
@@ -126,7 +127,7 @@ export default function FreelancerProjectPage() {
                       href={project.deliverable_url}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-[#C8845A] underline truncate"
+                      className="text-[#C8845A] underline break-all"
                     >
                       {project.deliverable_url}
                     </a>
@@ -136,7 +137,7 @@ export default function FreelancerProjectPage() {
 
               {project.status === "In Progress" && (
                 <div className="mt-auto pt-4 border-t border-[rgba(44,26,14,0.1)]">
-                  <label className="block text-sm font-semibold text-[#2C1A0E] mb-2">
+                  <label className="block text-sm font-semibold text-shadow-accent mb-2">
                     Submit Deliverable Link
                   </label>
                   <div className="flex gap-2">
@@ -149,12 +150,12 @@ export default function FreelancerProjectPage() {
                       }
                       className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#C8845A]"
                     />
-                    <button
+                    <Button
                       onClick={() => submitDeliverable(project._id)}
-                      className="bg-[#2C1A0E] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#1a0f08] transition-colors whitespace-nowrap"
+                      className="bg-accent text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#1a0f08] transition-colors whitespace-nowrap"
                     >
                       Complete
-                    </button>
+                    </Button>
                   </div>
                 </div>
               )}

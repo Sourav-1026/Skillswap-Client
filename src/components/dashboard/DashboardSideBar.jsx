@@ -90,7 +90,6 @@ export default async function DashboardSideBar() {
           href={item.href || "#"}
           key={item.label}
           className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-text-secondary transition-colors hover:bg-default hover:text-accent-hover"
-          type="button"
         >
           <item.icon className="size-5 text-accent hover:text-accent-hover" />
           {item.label}
@@ -105,16 +104,22 @@ export default async function DashboardSideBar() {
         {navContent}
       </aside>
       <Drawer>
-        <Button className={"lg:hidden"} variant="secondary">
+        <Button
+          className={
+            "flex items-center justify-center gap-2 w-full bg-accent lg:hidden mb-4 outline-none"
+          }
+        >
           <FaBars />
           Menu
         </Button>
         <Drawer.Backdrop>
           <Drawer.Content placement="left">
-            <Drawer.Dialog>
-              <Drawer.CloseTrigger />
+            <Drawer.Dialog className="bg-[#2C1A0E]">
+              <Drawer.CloseTrigger className="text-accent-text bg-accent" />
               <Drawer.Header>
-                <Drawer.Heading>Navigation</Drawer.Heading>
+                <Drawer.Heading className="text-accent">
+                  Navigation
+                </Drawer.Heading>
               </Drawer.Header>
               <Drawer.Body>{navContent}</Drawer.Body>
             </Drawer.Dialog>

@@ -129,10 +129,10 @@ const FreelancerPage = () => {
           {proposals.map((proposal) => (
             <div
               key={proposal._id}
-              className="bg-[var(--color-surface)] p-6 rounded-xl border border-[var(--color-border)] shadow-sm"
+              className="bg-surface p-6 rounded-xl border border-(--color-border) shadow-sm"
             >
               <div className="flex justify-between items-start mb-4">
-                <h3 className="text-lg font-bold text-[var(--color-primary)]">
+                <h3 className="text-lg font-bold text-(--color-primary)">
                   Proposal
                 </h3>
                 <span
@@ -141,13 +141,13 @@ const FreelancerPage = () => {
                   {proposal.status}
                 </span>
               </div>
-              <p className="text-sm text-[var(--color-secondary)] mb-4">
+              <p className="text-sm text-(--color-secondary) mb-4">
                 Proposed Budget: ${proposal.proposed_budget} | Estimated Days:{" "}
                 {proposal.estimated_days}
               </p>
               <Link
                 href={`/tasks/${proposal.task_id}`}
-                className="text-[var(--color-accent)] hover:underline text-sm font-medium"
+                className="text-(--color-accent) hover:underline text-sm font-medium"
               >
                 View Original Task &rarr;
               </Link>

@@ -3,8 +3,11 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 const Footer = () => {
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
   const pathName = usePathname();
   if (pathName?.includes("/signin") || pathName?.includes("/signup")) {
     return null; // Don't render the Footer on signin or signup pages
@@ -43,28 +46,42 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                href="/browse"
+                href="/tasks"
                 className="text-[13px] text-text-secondary hover:text-text-primary transition-colors"
               >
-                Browse Skills
+                Browse Tasks
               </Link>
             </li>
             <li>
               <Link
-                href="/members"
+                href="/freelancers"
                 className="text-[13px] text-text-secondary hover:text-text-primary transition-colors"
               >
-                Members
+                Browse Freelancers
               </Link>
             </li>
-            <li>
-              <Link
-                href="/sign-in"
-                className="text-[13px] text-text-secondary hover:text-text-primary transition-colors"
-              >
-                Sign In
-              </Link>
-            </li>
+            {user ? (
+              <>
+                <li>
+                  <Link
+                    href={`/dashboard/${user?.role}`}
+                    className="text-[13px] text-text-secondary hover:text-text-primary transition-colors"
+                  >
+                    Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/profile"
+                    className="text-[13px] text-text-secondary hover:text-text-primary transition-colors"
+                  >
+                    Profile
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <></>
+            )}
           </ul>
         </div>
 

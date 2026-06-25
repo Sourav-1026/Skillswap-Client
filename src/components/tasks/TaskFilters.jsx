@@ -32,31 +32,35 @@ export default function TaskFilters() {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row gap-4 mb-8 bg-surface-raised p-4 rounded-xl border border-border shadow-sm">
+    <div className="flex flex-col gap-4 mb-8 bg-surface-raised p-4 rounded-xl border border-border shadow-sm">
+      {/* Full width search */}
       <input
         type="text"
         placeholder="Search task title..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="flex-1 p-2 border border-border bg-surface rounded-md focus:outline-hidden focus:border-accent text-primary placeholder-text-muted"
+        className="w-full p-2 border border-border bg-surface rounded-md focus:outline-hidden focus:border-accent text-primary"
       />
-      <select
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-        className="p-2 border border-border rounded-md bg-surface text-primary focus:outline-hidden focus:border-accent"
-      >
-        {categories.map((c) => (
-          <option key={c} value={c}>
-            {c}
-          </option>
-        ))}
-      </select>
-      <button
-        onClick={handleFilter}
-        className="bg-accent text-accent-text px-8 py-2 rounded-md font-semibold hover:bg-accent-hover transition-colors"
-      >
-        Filter
-      </button>
+      {/* Select + Button row */}
+      <div className="flex gap-4">
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="flex-1 p-2 border border-border rounded-md bg-surface text-primary focus:outline-hidden focus:border-accent"
+        >
+          {categories.map((c) => (
+            <option key={c} value={c}>
+              {c}
+            </option>
+          ))}
+        </select>
+        <button
+          onClick={handleFilter}
+          className="bg-accent text-accent-text px-8 py-2 rounded-md font-semibold hover:bg-accent-hover transition-colors"
+        >
+          Filter
+        </button>
+      </div>
     </div>
   );
 }
