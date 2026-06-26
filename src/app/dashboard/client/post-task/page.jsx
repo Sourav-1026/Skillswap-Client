@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import { Spinner } from "@heroui/react";
+import { authFetch } from "@/lib/api";
 
 export default function PostTaskPage() {
   const router = useRouter();
@@ -35,14 +37,13 @@ export default function PostTaskPage() {
     };
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/tasks`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await authFetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/tasks`,
+        {
+          method: "POST",
+          body: JSON.stringify(taskData),
         },
-        credentials: "include",
-        body: JSON.stringify(taskData),
-      });
+      );
 
       if (res.ok) {
         toast.success("Task posted successfully!");
@@ -61,7 +62,12 @@ export default function PostTaskPage() {
     }
   };
 
-  if (isPending) return <div className="p-6 text-center">Loading...</div>;
+  if (isPending)
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Spinner className="text-accent" size="lg" />
+      </div>
+    );
 
   return (
     <div className="min-h-screen bg-[#F9F6F0] py-12 px-6">

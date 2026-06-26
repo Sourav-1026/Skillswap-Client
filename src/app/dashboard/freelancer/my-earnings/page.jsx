@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { FiDollarSign } from "react-icons/fi";
+import { Spinner } from "@heroui/react";
 
 export default function FreelancerEarningsPage() {
   const { data: session, isPending } = authClient.useSession();
@@ -33,7 +34,11 @@ export default function FreelancerEarningsPage() {
   };
 
   if (isPending || loading)
-    return <div className="p-10 text-center">Loading earnings...</div>;
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Spinner className="text-accent" size="lg" />
+      </div>
+    );
 
   const totalEarnings = payments.reduce((acc, curr) => acc + curr.amount, 0);
 

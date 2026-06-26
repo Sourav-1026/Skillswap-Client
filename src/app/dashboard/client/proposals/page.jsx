@@ -4,6 +4,8 @@ import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import { Spinner } from "@heroui/react";
+import { authFetch } from "@/lib/api";
 
 const ClientProposalsPage = () => {
   const router = useRouter();
@@ -34,10 +36,21 @@ const ClientProposalsPage = () => {
       const tasks = dataTasks.tasks || [];
 
       // 2. Fetch proposals for each task
+      // const proposalsPromises = tasks.map(async (task) => {
+      //   const res = await fetch(
+      //     `${process.env.NEXT_PUBLIC_BASE_URL}/api/proposals?taskId=${task._id}`,
+      //     { credentials: "include" },
+      //   );
+      //   if (res.ok) {
+      //     const props = await res.json();
+      //     return { task, proposals: props };
+      //   }
+      //   return { task, proposals: [] };
+      // });
+
       const proposalsPromises = tasks.map(async (task) => {
-        const res = await fetch(
+        const res = await authFetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/proposals?taskId=${task._id}`,
-          { credentials: "include" },
         );
         if (res.ok) {
           const props = await res.json();
@@ -47,6 +60,7 @@ const ClientProposalsPage = () => {
       });
 
       const results = await Promise.all(proposalsPromises);
+      console.log(results, "From proposals");
       // Filter out tasks with 0 proposals
       setProposalsByTask(results.filter((r) => r.proposals.length > 0));
     } catch (err) {
@@ -87,7 +101,9 @@ const ClientProposalsPage = () => {
 
   if (isPending || loading)
     return (
-      <div className="p-6 text-center text-secondary">Loading proposals...</div>
+      <div className="flex justify-center items-center min-h-screen">
+        <Spinner className="text-accent" size="lg" />
+      </div>
     );
 
   return (

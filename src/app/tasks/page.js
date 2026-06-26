@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import Link from "next/link";
+import { Spinner } from "@heroui/react";
 
 function TasksContent() {
   const searchParams = useSearchParams();
@@ -108,8 +109,8 @@ function TasksContent() {
         </div>
 
         {loading ? (
-          <div className="py-12 text-center text-secondary">
-            Loading tasks...
+          <div className="flex justify-center items-center min-h-screen">
+            <Spinner className="text-accent" size="lg" />
           </div>
         ) : (
           <>
@@ -187,8 +188,8 @@ export default function BrowseTasksPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center">
-          Loading tasks...
+        <div className="flex justify-center items-center min-h-screen">
+          <Spinner className="text-accent" size="lg" />
         </div>
       }
     >

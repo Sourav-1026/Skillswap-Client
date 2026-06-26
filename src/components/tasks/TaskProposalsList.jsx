@@ -68,7 +68,7 @@ export default function TaskProposalsList({ taskId, taskOwnerEmail }) {
     }
   };
 
-  if (isPending || loading) return null; // Don't show anything while loading or if not owner
+  if (isPending || loading) return null;
 
   if (!session || session.user.email !== taskOwnerEmail) {
     return null; // Only the task owner sees proposals

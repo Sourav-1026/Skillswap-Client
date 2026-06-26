@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
+import { Spinner } from "@heroui/react";
 
 export default function TransactionsHistoryPage() {
   const { data: session, isPending } = authClient.useSession();
@@ -33,7 +34,11 @@ export default function TransactionsHistoryPage() {
   };
 
   if (isPending || loading)
-    return <div className="p-10 text-center">Loading transactions...</div>;
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Spinner className="text-accent" size="lg" />
+      </div>
+    );
 
   return (
     <div className="p-6 md:p-10 max-w-6xl mx-auto">

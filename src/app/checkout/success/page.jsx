@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { FiCheckCircle } from "react-icons/fi";
+import { Spinner } from "@heroui/react";
 
 function SuccessContent() {
   const searchParams = useSearchParams();
@@ -107,7 +108,11 @@ export default function CheckoutSuccessPage() {
     <div className="min-h-screen bg-[#F9F6F0] flex items-center justify-center py-12 px-6">
       <div className="max-w-md w-full bg-white rounded-3xl p-8 border border-[rgba(44,26,14,0.1)] shadow-sm">
         <Suspense
-          fallback={<div className="text-center text-gray-500">Loading...</div>}
+          fallback={
+            <div className="flex justify-center items-center min-h-screen">
+              <Spinner className="text-accent" size="lg" />
+            </div>
+          }
         >
           <SuccessContent />
         </Suspense>

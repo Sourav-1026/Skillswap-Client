@@ -19,7 +19,8 @@ export default async function TopFreelancers() {
 
   return (
     // py-20 px-12 md:px-6
-    <section className=" max-w-7xl mx-auto  rounded-3xl my-10 ">
+    // w-full px-6 md:px-0
+    <section className="w-full px-6 max-w-7xl mx-auto  my-10 ">
       <h2 className="text-3xl font-bold text-center mb-12 text-accent">
         Top Freelancers
       </h2>

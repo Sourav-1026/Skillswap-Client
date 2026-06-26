@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import { Spinner } from "@heroui/react";
 
 export default function EditTaskPage({ params }) {
   const router = useRouter();
@@ -100,7 +101,11 @@ export default function EditTaskPage({ params }) {
   };
 
   if (isPending || loading)
-    return <div className="p-6 text-center">Loading...</div>;
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Spinner className="text-accent" size="lg" />
+      </div>
+    );
   if (!task) return null;
 
   // Format date for input type="date"

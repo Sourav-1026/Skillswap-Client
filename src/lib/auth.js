@@ -10,6 +10,21 @@ export const auth = betterAuth({
   database: mongodbAdapter(db, {
     client,
   }),
+  advanced: {
+    cookies: {
+      session_token: {
+        attributes: {
+          sameSite: "none",
+          secure: true,
+        },
+      },
+    },
+  },
+  trustedOrigins: [
+    "http://localhost:5000",
+    "http://localhost:3000",
+    process.env.NEXT_PUBLIC_BASE_URL || "",
+  ],
   emailAndPassword: {
     enabled: true,
     autoSignIn: false,

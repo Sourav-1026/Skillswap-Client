@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
 import Link from "next/link";
-import { Button } from "@heroui/react";
+import { Button, Spinner } from "@heroui/react";
 
 export default function FreelancerProjectPage() {
   const { data: session, isPending } = authClient.useSession();
@@ -66,7 +66,11 @@ export default function FreelancerProjectPage() {
   };
 
   if (isPending || loading)
-    return <div className="p-10 text-center">Loading projects...</div>;
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Spinner className="text-accent" size="lg" />
+      </div>
+    );
 
   return (
     <div className="p-6 md:p-10 max-w-6xl mx-auto">

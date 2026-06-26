@@ -4,6 +4,7 @@ import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Link from "next/link";
+import { Spinner } from "@heroui/react";
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -87,7 +88,11 @@ export default function SettingsPage() {
   };
 
   if (isPending || loading)
-    return <div className="p-6 text-center">Loading...</div>;
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Spinner className="text-accent" size="lg" />
+      </div>
+    );
 
   return (
     <div className="min-h-screen bg-[#F9F6F0] py-12 px-6">

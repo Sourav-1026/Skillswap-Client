@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { FiUsers, FiFileText, FiDollarSign, FiActivity } from "react-icons/fi";
+import { Spinner } from "@heroui/react";
 
 export default function AdminDashboardPage() {
   const { data: session, isPending } = authClient.useSession();
@@ -33,7 +34,11 @@ export default function AdminDashboardPage() {
   };
 
   if (isPending || loading)
-    return <div className="p-10 text-center">Loading stats...</div>;
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Spinner className="text-accent" size="lg" />
+      </div>
+    );
   if (!stats)
     return (
       <div className="p-10 text-center text-red-500">

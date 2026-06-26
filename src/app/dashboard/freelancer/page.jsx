@@ -9,6 +9,7 @@ import {
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { Spinner } from "@heroui/react";
 
 const FreelancerPage = () => {
   const router = useRouter();
@@ -46,7 +47,11 @@ const FreelancerPage = () => {
   };
 
   if (isPending || loading)
-    return <div className="p-6 text-center">Loading...</div>;
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Spinner className="text-accent" size="lg" />
+      </div>
+    );
 
   const totalEarnings = proposals.reduce(
     (acc, p) =>
