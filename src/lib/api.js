@@ -11,19 +11,26 @@ export async function authFetch(url, options = {}) {
       const data = await res.json();
       token = data.token;
     }
-
-    console.log("Token from /api/auth/token:", token); // what does this print?
   } catch (err) {
     console.error("Token fetch failed:", err);
   }
 
+  // ✅ Destructure headers out of options so we can merge safely
+  const { headers: optionHeaders, ...restOptions } = options;
+  console.log(
+    "Sending Authorization:",
+    token ? "Bearer present ✅" : "No token ❌",
+  );
+
   return fetch(url, {
-    ...options,
-    credentials: "include", // ✅ always send cookies too
+    ...restOptions,
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...options.headers,
+      ...optionHeaders, // spread caller's headers first
+      ...(token // ✅ Authorization always goes last, never overwritten
+        ? { Authorization: `Bearer ${token}` }
+        : {}),
     },
   });
 }
