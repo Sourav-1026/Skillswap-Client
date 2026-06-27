@@ -5,6 +5,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { authClient } from "@/lib/auth-client";
 import { useRouter, useParams } from "next/navigation";
 import CheckoutForm from "@/components/checkout/CheckoutForm";
+import { authFetch } from "@/lib/api";
 
 // Load stripe
 const stripePromise = loadStripe(
@@ -32,12 +33,10 @@ export default function CheckoutPage() {
       try {
         // We request a new PaymentIntent from the server.
         // The server will use the proposalId to securely fetch the amount and create the intent.
-        const res = await fetch(
+        const res = await authFetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/checkout/create-intent`,
           {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            credentials: "include",
             body: JSON.stringify({ proposalId }),
           },
         );

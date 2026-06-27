@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import Link from "next/link";
 import { FiCheckCircle } from "react-icons/fi";
 import { Spinner } from "@heroui/react";
+import { authFetch } from "@/lib/api";
 
 function SuccessContent() {
   const searchParams = useSearchParams();
@@ -24,12 +25,10 @@ function SuccessContent() {
         // Stripe redirects the user here with a payment_intent in the URL.
         // We must send this to our backend to verify it actually succeeded and hasn't been tampered with.
         // The backend will also mark the proposal as 'accepted' and store the payment record.
-        const res = await fetch(
+        const res = await authFetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/proposals/${proposalId}/confirm-payment`,
           {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            credentials: "include",
             body: JSON.stringify({ paymentIntentId: paymentIntent }),
           },
         );

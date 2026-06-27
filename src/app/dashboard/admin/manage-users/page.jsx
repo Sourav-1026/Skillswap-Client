@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
 import { Spinner } from "@heroui/react";
+import { authFetch } from "@/lib/api";
 
 export default function ManageUsersPage() {
   const { data: session, isPending } = authClient.useSession();
@@ -32,12 +33,11 @@ export default function ManageUsersPage() {
 
   const handleBlockUser = async (email, currentStatus) => {
     try {
-      const res = await fetch(
+      const res = await authFetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${email}/block`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
+
           body: JSON.stringify({ isBlocked: !currentStatus }),
         },
       );

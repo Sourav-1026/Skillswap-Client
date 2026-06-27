@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { Spinner } from "@heroui/react";
+import { authFetch } from "@/lib/api";
 
 export default function ActiveProjectsPage() {
   const router = useRouter();
@@ -26,11 +27,8 @@ export default function ActiveProjectsPage() {
 
   const fetchActiveTasks = async (email) => {
     try {
-      const res = await fetch(
+      const res = await authFetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/tasks/freelancer/${email}`,
-        {
-          credentials: "include",
-        },
       );
       if (res.ok) {
         const data = await res.json();

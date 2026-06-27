@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { Spinner } from "@heroui/react";
+import { authFetch } from "@/lib/api";
 
 export default function TransactionsHistoryPage() {
   const { data: session, isPending } = authClient.useSession();
@@ -17,11 +18,8 @@ export default function TransactionsHistoryPage() {
 
   const fetchTransactions = async () => {
     try {
-      const res = await fetch(
+      const res = await authFetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/payments`,
-        {
-          credentials: "include",
-        },
       );
       if (res.ok) {
         setTransactions(await res.json());

@@ -78,12 +78,11 @@ const ClientProposalsPage = () => {
     }
 
     try {
-      const res = await fetch(
+      const res = await authFetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/proposals/${proposalId}`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
+
           body: JSON.stringify({ status }),
         },
       );

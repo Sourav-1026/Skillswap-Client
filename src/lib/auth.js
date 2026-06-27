@@ -10,16 +10,26 @@ export const auth = betterAuth({
   database: mongodbAdapter(db, {
     client,
   }),
-  advanced: {
-    cookies: {
-      session_token: {
-        attributes: {
-          sameSite: "none",
-          secure: true,
-        },
-      },
+
+  // advanced: {
+  //   cookies: {
+  //     session_token: {
+  //       attributes: {
+  //         sameSite: "none",
+  //         secure: true,
+  //       },
+  //     },
+  //   },
+  // },
+
+  session: {
+    cookieCache: {
+      enabled: true,
+      strategy: "jwt",
+      maxAge: 60 * 24 * 30,
     },
   },
+
   trustedOrigins: [
     "http://localhost:5000",
     "http://localhost:3000",

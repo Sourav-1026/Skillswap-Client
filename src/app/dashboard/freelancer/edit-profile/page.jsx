@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { Spinner } from "@heroui/react";
+import { authFetch } from "@/lib/api";
 
 export default function FreelancerEditProfilePage() {
   const router = useRouter();
@@ -70,12 +71,11 @@ export default function FreelancerEditProfilePage() {
     };
 
     try {
-      const res = await fetch(
+      const res = await authFetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${session.user.email}`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
+
           body: JSON.stringify(updatedData),
         },
       );

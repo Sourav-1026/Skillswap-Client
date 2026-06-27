@@ -4,6 +4,7 @@ import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { Spinner } from "@heroui/react";
+import { authFetch } from "@/lib/api";
 
 export default function ManageTasksPage() {
   const { data: session, isPending } = authClient.useSession();
@@ -45,12 +46,9 @@ export default function ManageTasksPage() {
       return;
 
     try {
-      const res = await fetch(
+      const res = await authFetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/tasks/${taskId}`,
-        {
-          method: "DELETE",
-          credentials: "include",
-        },
+        { method: "DELETE" },
       );
       if (res.ok) {
         toast.success("Task deleted successfully.");

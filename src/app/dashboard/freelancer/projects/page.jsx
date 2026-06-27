@@ -4,6 +4,7 @@ import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { Button, Spinner } from "@heroui/react";
+import { authFetch } from "@/lib/api";
 
 export default function FreelancerProjectPage() {
   const { data: session, isPending } = authClient.useSession();
@@ -19,11 +20,8 @@ export default function FreelancerProjectPage() {
 
   const fetchProjects = async (email) => {
     try {
-      const res = await fetch(
+      const res = await authFetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/tasks/freelancer/${email}`,
-        {
-          credentials: "include",
-        },
       );
       if (res.ok) {
         setProjects(await res.json());
@@ -44,12 +42,10 @@ export default function FreelancerProjectPage() {
     if (!url) return toast.error("Please enter a deliverable URL");
 
     try {
-      const res = await fetch(
+      const res = await authFetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/tasks/${taskId}`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
           body: JSON.stringify({ status: "Completed", deliverable_url: url }),
         },
       );

@@ -1,21 +1,17 @@
+import { authClient } from "@/lib/auth-client";
+
 export async function authFetch(url, options = {}) {
   let token = null;
 
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/api/auth/token`,
-      { credentials: "include" },
-    );
-
-    if (res.ok) {
-      const data = await res.json();
-      token = data.token;
-    }
+    const { data } = await authClient.token();
+    console.log("Full token response:", data);
+    token = data?.token ?? null;
+    console.log("Token:", token ? token.slice(0, 20) + "..." : "NULL");
   } catch (err) {
     console.error("Token fetch failed:", err);
   }
 
-  // ✅ Destructure headers out of options so we can merge safely
   const { headers: optionHeaders, ...restOptions } = options;
   console.log(
     "Sending Authorization:",
@@ -27,10 +23,8 @@ export async function authFetch(url, options = {}) {
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      ...optionHeaders, // spread caller's headers first
-      ...(token // ✅ Authorization always goes last, never overwritten
-        ? { Authorization: `Bearer ${token}` }
-        : {}),
+      ...optionHeaders,
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
     },
   });
 }

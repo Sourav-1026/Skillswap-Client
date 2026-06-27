@@ -1,6 +1,7 @@
 "use client";
 
 import { createPost } from "@/lib/actions/tasks";
+import { authFetch } from "@/lib/api";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -58,18 +59,15 @@ const PostTaskForm = () => {
       clientId: user?.id,
       clientName: user?.name,
       clientEmail: user?.email,
+      // client_email: user?.email,
       createdAt: new Date().toISOString(),
     };
 
     try {
-      const response = await fetch(
+      const response = await authFetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/tasks`,
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
           body: JSON.stringify(newData),
         },
       );
