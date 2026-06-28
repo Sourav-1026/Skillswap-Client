@@ -164,8 +164,8 @@ const ClientTasksTable = ({ tasks = [] }) => {
         {/* Empty state */}
         {tasks.length === 0 && (
           <div className="py-20 text-center">
-            <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-              <FiClipboard className="text-gray-400" size={28} />
+            <div className="mx-auto w-16 h-16 bg-accent rounded-full flex items-center justify-center mb-4">
+              <FiClipboard className="text-accent-text" size={28} />
             </div>
             <p className="text-lg font-medium text-[var(--color-text-primary)] mb-1">
               No tasks found
