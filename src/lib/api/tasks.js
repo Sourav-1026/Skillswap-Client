@@ -1,4 +1,14 @@
 import { headers } from "next/headers";
+import { auth } from "../auth";
+
+const getServerToken = async () => {
+  const headersList = await headers();
+  const sessionRes = await auth.api.getSession({
+    headers: headersList,
+    returnHeaders: true,
+  });
+  return sessionRes?.headers?.get("set-auth-jwt");
+};
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -23,13 +33,15 @@ export const getSingleTask = async (taskId) => {
 };
 
 export const getfreelancerProposals = async (freelancerEmail) => {
-  const headersList = await headers();
-  const cookie = headersList.get("cookie");
+  const token = await getServerToken();
 
   const res = await fetch(
     `${baseUrl}/api/proposals?freelancerEmail=${freelancerEmail}`,
     {
-      headers: cookie ? { Cookie: cookie } : {},
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
     },
   );
 

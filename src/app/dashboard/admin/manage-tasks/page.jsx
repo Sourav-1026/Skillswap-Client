@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
 import Link from "next/link";
-import { Spinner } from "@heroui/react";
+import { Button, Spinner } from "@heroui/react";
 import { authFetch } from "@/lib/api";
+import { DeleteTaskAdmin } from "@/components/tasks/DeleteTaskAdmin";
 
 export default function ManageTasksPage() {
   const { data: session, isPending } = authClient.useSession();
@@ -34,31 +35,6 @@ export default function ManageTasksPage() {
       console.error(err);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleDeleteTask = async (taskId) => {
-    if (
-      !window.confirm(
-        "Are you sure you want to delete this task? This action cannot be undone.",
-      )
-    )
-      return;
-
-    try {
-      const res = await authFetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/tasks/${taskId}`,
-        { method: "DELETE" },
-      );
-      if (res.ok) {
-        toast.success("Task deleted successfully.");
-        fetchTasks();
-      } else {
-        toast.error("Failed to delete task.");
-      }
-    } catch (err) {
-      console.error(err);
-      toast.error("An error occurred.");
     }
   };
 
@@ -130,12 +106,7 @@ export default function ManageTasksPage() {
                       >
                         View
                       </Link>
-                      <button
-                        onClick={() => handleDeleteTask(t._id)}
-                        className="text-red-600 hover:text-red-800 font-medium text-sm transition-colors"
-                      >
-                        Delete
-                      </button>
+                      <DeleteTaskAdmin t={t} />
                     </td>
                   </tr>
                 ))}

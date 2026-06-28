@@ -20,7 +20,6 @@ export default async function DashboardSideBar() {
   });
 
   const user = session?.user;
-  // console.log(user);
 
   const navItems = {
     client: [

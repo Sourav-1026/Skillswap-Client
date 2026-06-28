@@ -46,7 +46,6 @@ const PostTaskForm = () => {
   const router = useRouter();
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  console.log(user);
 
   const onSubmit = async (e) => {
     e.preventDefault();

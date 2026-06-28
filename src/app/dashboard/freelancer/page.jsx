@@ -10,6 +10,7 @@ import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Spinner } from "@heroui/react";
+import { authFetch } from "@/lib/api";
 
 const FreelancerPage = () => {
   const router = useRouter();
@@ -31,9 +32,8 @@ const FreelancerPage = () => {
 
   const fetchProposals = async (email) => {
     try {
-      const res = await fetch(
+      const res = await authFetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/proposals?freelancerEmail=${email}`,
-        { credentials: "include" },
       );
       if (res.ok) {
         const data = await res.json();

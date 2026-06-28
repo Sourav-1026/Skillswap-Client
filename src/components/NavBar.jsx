@@ -23,14 +23,11 @@ export default function NavBar() {
     }
   };
 
-  // console.log(pathName, "from navbar");
-
   if (pathName?.includes("/signin") || pathName?.includes("/signup")) {
     return null; // Don't render the NavBar on signin or signup pages
   }
 
   const user = session?.user;
-  // console.log(user, "form navbar");
 
   const isActive = (href) => pathName === href;
 

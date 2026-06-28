@@ -4,6 +4,7 @@ import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { authFetch } from "@/lib/api";
 
 export default function TaskProposalsList({ taskId, taskOwnerEmail }) {
   const router = useRouter();
@@ -21,11 +22,8 @@ export default function TaskProposalsList({ taskId, taskOwnerEmail }) {
 
   const fetchProposals = async () => {
     try {
-      const res = await fetch(
+      const res = await authFetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/proposals?taskId=${taskId}`,
-        {
-          credentials: "include",
-        },
       );
       if (res.ok) {
         setProposals(await res.json());
@@ -47,12 +45,11 @@ export default function TaskProposalsList({ taskId, taskOwnerEmail }) {
 
     // For rejections, we can directly update the database.
     try {
-      const res = await fetch(
+      const res = await authFetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/proposals/${proposalId}`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
+
           body: JSON.stringify({ status }),
         },
       );

@@ -6,7 +6,7 @@
 
 ## 🌐 Live Demo
 
-https://study-nook-pied.vercel.app
+https://skillswap-client-eight.vercel.app
 
 ---
 

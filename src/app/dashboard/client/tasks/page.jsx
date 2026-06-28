@@ -10,7 +10,6 @@ const ClientTasksPage = async () => {
   });
   const user = session?.user;
   const tasks = await getClientTasks(user?.email, "");
-  console.log(tasks);
   return (
     <div>
       {/* <h1>This is client all tasks page</h1> */}

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { FiDollarSign } from "react-icons/fi";
 import { Spinner } from "@heroui/react";
+import { authFetch } from "@/lib/api";
 
 export default function FreelancerEarningsPage() {
   const { data: session, isPending } = authClient.useSession();
@@ -17,11 +18,8 @@ export default function FreelancerEarningsPage() {
 
   const fetchPayments = async (email) => {
     try {
-      const res = await fetch(
+      const res = await authFetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/payments?freelancerEmail=${email}`,
-        {
-          credentials: "include",
-        },
       );
       if (res.ok) {
         setPayments(await res.json());

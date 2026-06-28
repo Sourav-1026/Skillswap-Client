@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
+import { authFetch } from "@/lib/api";
 
 export default function ProposalForm({ taskId }) {
   const { data: session } = authClient.useSession();
@@ -29,12 +30,11 @@ export default function ProposalForm({ taskId }) {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch(
+      const res = await authFetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/proposals`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
+
           body: JSON.stringify({
             task_id: taskId,
             proposed_budget: Number(budget),

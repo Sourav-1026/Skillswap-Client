@@ -5,6 +5,9 @@ import { FiEye, FiEdit2, FiTrash2, FiClipboard } from "react-icons/fi";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { Button } from "@heroui/react";
+import { authFetch } from "@/lib/api";
+import { DeleteTaskModal } from "../tasks/DeleteTaskModal";
 
 const STATUS_COLORS = {
   Open: {
@@ -52,29 +55,6 @@ const ClientTasksTable = ({ tasks = [] }) => {
       return sortDescriptor.direction === "ascending" ? cmp : -cmp;
     });
   }, [tasks, sortDescriptor]);
-
-  const handleDelete = async (id) => {
-    if (confirm("Are you sure you want to delete this task?")) {
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/tasks/${id}`,
-          {
-            method: "DELETE",
-            credentials: "include",
-          },
-        );
-        if (res.ok) {
-          toast.success("Task deleted successfully!");
-          router.refresh();
-        } else {
-          toast.error("Failed to delete task.");
-        }
-      } catch (err) {
-        console.error(err);
-        toast.error("An error occurred.");
-      }
-    }
-  };
 
   return (
     <div className="p-6">
@@ -172,12 +152,7 @@ const ClientTasksTable = ({ tasks = [] }) => {
                       >
                         <FiEdit2 size={14} /> Edit
                       </Link>
-                      <button
-                        onClick={() => handleDelete(task._id)}
-                        className="text-sm font-semibold text-red-600 hover:text-red-700 hover:underline flex items-center gap-1"
-                      >
-                        <FiTrash2 size={14} /> Delete
-                      </button>
+                      <DeleteTaskModal task={task} />
                     </div>
                   )}
                 </div>
