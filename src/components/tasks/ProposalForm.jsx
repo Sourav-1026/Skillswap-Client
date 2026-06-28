@@ -76,7 +76,7 @@ export default function ProposalForm({ taskId }) {
               required
               value={budget}
               onChange={(e) => setBudget(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg text-shadow-accent focus:outline-hidden focus:border-[#C8845A]"
+              className="w-full p-3 border  rounded-lg text-shadow-accent focus:outline-hidden focus:border-[#C8845A]"
             />
           </div>
           <div>
@@ -88,7 +88,7 @@ export default function ProposalForm({ taskId }) {
               required
               value={days}
               onChange={(e) => setDays(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg text-shadow-accent focus:outline-hidden focus:border-[#C8845A]"
+              className="w-full p-3 border  rounded-lg text-shadow-accent focus:outline-hidden focus:border-[#C8845A]"
             />
           </div>
         </div>
@@ -101,7 +101,7 @@ export default function ProposalForm({ taskId }) {
             rows="4"
             value={coverNote}
             onChange={(e) => setCoverNote(e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg text-shadow-accent focus:outline-hidden focus:border-[#C8845A]"
+            className="w-full p-3 border rounded-lg text-shadow-accent focus:outline-hidden focus:border-[#C8845A]"
           ></textarea>
         </div>
         <button

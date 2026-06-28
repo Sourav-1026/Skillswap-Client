@@ -110,7 +110,7 @@ export default function EditTaskPage({ params }) {
   const formattedDate = new Date(task.deadline).toISOString().split("T")[0];
 
   return (
-    <div className="min-h-screen bg-[#F9F6F0] py-12 px-6">
+    <div className="min-h-screen bg-background py-12 px-6">
       <div className="max-w-3xl mx-auto">
         <Link
           href="/dashboard/client"
@@ -119,13 +119,15 @@ export default function EditTaskPage({ params }) {
           &larr; Back to Dashboard
         </Link>
 
-        <div className="bg-white rounded-3xl p-8 border border-[rgba(44,26,14,0.1)] shadow-sm">
-          <h1 className="text-3xl font-bold text-[#2C1A0E] mb-2">Edit Task</h1>
-          <p className="text-gray-500 mb-8">Update your task details below.</p>
+        <div className="bg-background rounded-3xl p-8 border border-border shadow-sm">
+          <h1 className="text-3xl font-bold text-accent mb-2">Edit Task</h1>
+          <p className="text-shadow-accent mb-8">
+            Update your task details below.
+          </p>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
             <div>
-              <label className="block text-sm font-medium text-[#2C1A0E] mb-2">
+              <label className="block text-sm font-medium text-shadow-accent mb-2">
                 Task Title
               </label>
               <input
@@ -133,12 +135,12 @@ export default function EditTaskPage({ params }) {
                 name="title"
                 required
                 defaultValue={task.title}
-                className="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-[#C8845A] focus:outline-none focus:ring-1 focus:ring-[#C8845A] transition-colors"
+                className="w-full rounded-lg border  px-4 py-2.5 focus:border-[#C8845A] focus:outline-none focus:ring-1 focus:ring-[#C8845A] transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#2C1A0E] mb-2">
+              <label className="block text-sm font-medium text-shadow-accent mb-2">
                 Description
               </label>
               <textarea
@@ -146,20 +148,20 @@ export default function EditTaskPage({ params }) {
                 required
                 rows={5}
                 defaultValue={task.description}
-                className="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-[#C8845A] focus:outline-none focus:ring-1 focus:ring-[#C8845A] transition-colors resize-y"
+                className="w-full rounded-lg border  px-4 py-2.5 focus:border-[#C8845A] focus:outline-none focus:ring-1 focus:ring-[#C8845A] transition-colors resize-y"
               ></textarea>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-[#2C1A0E] mb-2">
+                <label className="block text-sm font-medium text-shadow-accent mb-2">
                   Category
                 </label>
                 <select
                   name="category"
                   required
                   defaultValue={task.category}
-                  className="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-[#C8845A] focus:outline-none focus:ring-1 focus:ring-[#C8845A] transition-colors bg-white"
+                  className="w-full rounded-lg border  px-4 py-2.5 focus:border-[#C8845A] focus:outline-none focus:ring-1 focus:ring-[#C8845A] transition-colors "
                 >
                   <option value="Development">Development</option>
                   <option value="Design">Design</option>
@@ -170,7 +172,7 @@ export default function EditTaskPage({ params }) {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-[#2C1A0E] mb-2">
+                <label className="block text-sm font-medium text-shadow-accent mb-2">
                   Budget (USD)
                 </label>
                 <input
@@ -179,13 +181,13 @@ export default function EditTaskPage({ params }) {
                   required
                   min="5"
                   defaultValue={task.budget}
-                  className="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-[#C8845A] focus:outline-none focus:ring-1 focus:ring-[#C8845A] transition-colors"
+                  className="w-full rounded-lg border  px-4 py-2.5 focus:border-[#C8845A] focus:outline-none focus:ring-1 focus:ring-[#C8845A] transition-colors"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#2C1A0E] mb-2">
+              <label className="block text-sm font-medium text-shadow-accent mb-2">
                 Deadline
               </label>
               <input
@@ -193,7 +195,7 @@ export default function EditTaskPage({ params }) {
                 name="deadline"
                 required
                 defaultValue={formattedDate}
-                className="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-[#C8845A] focus:outline-none focus:ring-1 focus:ring-[#C8845A] transition-colors"
+                className="w-full rounded-lg border  px-4 py-2.5 focus:border-[#C8845A] focus:outline-none focus:ring-1 focus:ring-[#C8845A] transition-colors"
               />
             </div>
 
